@@ -1,8 +1,12 @@
 // Навигация
 function navigateTo(page) {
-    // В будущем здесь будут реальные страницы
-    console.log("Переход на: " + page);
-    // window.location.href = page;
+    // Добавляем класс затухания перед переходом (если захотите добавить анимацию выхода)
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s';
+
+    setTimeout(() => {
+        window.location.href = page;
+    }, 300);
 }
 
 // Обработка входа через Google

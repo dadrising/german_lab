@@ -1,0 +1,49 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    background-color: #1a1a1a;
+    padding: 20px;
+}
+
+.container {
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+h1 { margin-bottom: 20px; font-size: 2.5rem; }
+p { margin-bottom: 30px; line-height: 1.6; opacity: 0.9; }
+
+.back-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #eee;
+    transform: translateY(-2px);
+}
+
+/* Индивидуальные акценты для страниц */
+body.dict-page { border-top: 10px solid #3498db; }
+body.pract-page { border-top: 10px solid #e74c3c; }
+body.read-page { border-top: 10px solid #2ecc71; }
+body.type-page { border-top: 10px solid #f1c40f; }

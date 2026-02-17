@@ -5,62 +5,56 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     background-color: #1a1a1a;
+    overflow: hidden;
 }
 
 header {
-    padding: 10px 20px;
+    padding: 15px;
     display: flex;
     justify-content: flex-end;
     background: #222;
-    color: white;
 }
 
 .dashboard {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* 2 колонки для ПК */
     grid-template-rows: 1fr 1fr;
     height: 100%;
     gap: 10px;
     padding: 10px;
+    transition: all 0.5s ease;
 }
 
 .section {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 8px;
-    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
     color: white;
     text-align: center;
+    position: relative;
 }
 
-/* Цвета для разделов */
-#dictionary { background-color: #3498db; }
-#practice { background-color: #e74c3c; }
-#reading { background-color: #2ecc71; }
-#typing { background-color: #f1c40f; color: #333; }
-
+/* Эффект увеличения и подсветки */
 .section:hover {
-    transform: scale(1.02);
-    z-index: 10;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: scale(1.03);
+    z-index: 5;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 .extra-info {
     max-height: 0;
     opacity: 0;
     transition: all 0.3s ease;
-    margin-top: 10px;
-    font-size: 0.9em;
+    font-size: 1rem;
+    padding-top: 10px;
 }
 
 .section:hover .extra-info {
@@ -68,17 +62,18 @@ header {
     opacity: 1;
 }
 
-h2 {
-    font-size: 2.5rem;
-}
+/* Цвета разделов */
+#dictionary { background: linear-gradient(135deg, #3498db, #2980b9); }
+#practice { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+#reading { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+#typing { background: linear-gradient(135deg, #f1c40f, #f39c12); color: #333; }
 
-.login-button {
-    padding: 10px 20px;
-    background: #4285F4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+/* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ */
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr; /* 1 колонка для телефонов */
+        grid-template-rows: repeat(4, 1fr);
+        overflow-y: auto;
+    }
+    h2 { font-size: 1.8rem; }
 }
-.login-button:hover { background: #357ae8; }
