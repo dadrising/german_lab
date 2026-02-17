@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deutsch Lernen - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+<header>
+    <button id="auth-btn" class="login-button">Войти через Google</button>
+</header>
+
+<main class="dashboard">
+    <div class="section" id="dictionary" onclick="navigateTo('dictionary.html')">
+        <div class="content">
+            <h2>Словарь</h2>
+            <p class="extra-info">Изучайте новые слова и пополняйте свой лексикон.</p>
+        </div>
+    </div>
+    <div class="section" id="practice" onclick="navigateTo('practice.html')">
+        <div class="content">
+            <h2>Практикум</h2>
+            <p class="extra-info">Грамматические упражнения и тесты.</p>
+        </div>
+    </div>
+    <div class="section" id="reading" onclick="navigateTo('reading.html')">
+        <div class="content">
+            <h2>Чтение</h2>
+            <p class="extra-info">Тексты разных уровней сложности с переводом.</p>
+        </div>
+    </div>
+    <div class="section" id="typing" onclick="navigateTo('typing.html')">
+        <div class="content">
+            <h2>Клавиатурный тренажер</h2>
+            <p class="extra-info">Тренируйте скорость набора немецких спецсимволов.</p>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Ваши данные из консоли Firebase (Copy-Paste из настроек проекта)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCwXckLj1wL2K4JgSRYaiBP8IHOGxodJQ0",
+        authDomain: "german-lab-21f66.firebaseapp.com",
+        projectId: "german-lab-21f66",
+        storageBucket: "german-lab-21f66.firebasestorage.app",
+        messagingSenderId: "603888226360",
+        appId: "1:603888226360:web:0f863100b8eeef478296cd"
+    };
+
+    // Инициализация
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // Функция входа
+    window.login = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            console.log("Авторизован:", user.displayName);
+            saveUserToDb(user);
+        } catch (error) {
+            console.error("Ошибка входа:", error);
+        }
+    };
+
+    // Сохранение базовых данных пользователя
+    async function saveUserToDb(user) {
+        await setDoc(doc(db, "users", user.uid), {
+            name: user.displayName,
+            email: user.email,
+            lastLogin: new Date()
+        }, { merge: true });
+    }
+
+    // Следим за состоянием пользователя
+    onAuthStateChanged(auth, (user) => {
+        const btn = document.getElementById('auth-btn');
+        if (user) {
+            btn.innerText = `Выйти (${user.displayName})`;
+            btn.onclick = () => auth.signOut();
+        } else {
+            btn.innerText = "Войти через Google";
+            btn.onclick = () => window.login();
+        }
+    });
+</script>
+</body>
+</html>

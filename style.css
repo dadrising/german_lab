@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #1a1a1a;
+}
+
+header {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    background: #222;
+    color: white;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    gap: 10px;
+    padding: 10px;
+}
+
+.section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 8px;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+/* Цвета для разделов */
+#dictionary { background-color: #3498db; }
+#practice { background-color: #e74c3c; }
+#reading { background-color: #2ecc71; }
+#typing { background-color: #f1c40f; color: #333; }
+
+.section:hover {
+    transform: scale(1.02);
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.extra-info {
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.section:hover .extra-info {
+    max-height: 100px;
+    opacity: 1;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+.login-button {
+    padding: 10px 20px;
+    background: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.login-button:hover { background: #357ae8; }
